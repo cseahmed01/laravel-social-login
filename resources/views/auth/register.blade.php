@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Social Login</title>
+    <title>Register - Social Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -12,7 +12,7 @@
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .login-container {
+        .register-container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -87,15 +87,15 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
-                <div class="login-container p-4 p-md-5">
+                <div class="register-container p-4 p-md-5">
                     <div class="text-center mb-4">
-                        <h2 class="fw-bold text-dark mb-2">Welcome Back</h2>
-                        <p class="text-muted">Sign in to your account</p>
+                        <h2 class="fw-bold text-dark mb-2">Create Account</h2>
+                        <p class="text-muted">Join us today and get started</p>
                     </div>
 
                     @if($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Please check your credentials:</strong>
+                            <strong>Please fix the following errors:</strong>
                             <ul class="mb-0 mt-2">
                                 @foreach($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -112,21 +112,32 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-semibold">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+                        </div>
 
                         <div class="mb-3">
                             <label for="email" class="form-label fw-semibold">Email Address</label>
                             <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mb-3">
                             <label for="password" class="form-label fw-semibold">Password</label>
                             <input type="password" class="form-control" id="password" name="password" required>
+                            <div class="form-text">Must be at least 8 characters long</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password_confirmation" class="form-label fw-semibold">Confirm Password</label>
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100 mb-3">
-                            <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                            <i class="fas fa-user-plus me-2"></i>Create Account
                         </button>
                     </form>
 
@@ -144,8 +155,8 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <p class="mb-0">Don't have an account?
-                            <a href="{{ route('register') }}" class="text-decoration-none fw-semibold" style="color: #667eea;">Sign Up</a>
+                        <p class="mb-0">Already have an account?
+                            <a href="{{ route('login') }}" class="text-decoration-none fw-semibold" style="color: #667eea;">Sign In</a>
                         </p>
                     </div>
                 </div>
